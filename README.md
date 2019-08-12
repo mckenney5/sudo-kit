@@ -2,6 +2,7 @@ sudo-kit
 ==============
 sudo-kit — _A trojan for bash and sudo to obtain user passwords_
 
+![Screen Shot](https://github.com/mckenney5/sudo-kit/raw/master/sc.png)
 
 ## Description
 This program is designed to be run on a target computer, where it will
