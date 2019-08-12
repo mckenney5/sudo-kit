@@ -6,7 +6,7 @@ sudo-kit — _A trojan for bash and sudo to obtain user passwords_
 ## Description
 This program is designed to be run on a target computer, where it will
 then append the user's bashrc file and be called any time sudo is called.
-When a target types in their password, it is saved so it can be accsessed
+When a target types in their password, it is saved so it can be accessed
 later.
 
 ## Project Meta
@@ -24,16 +24,16 @@ The simplest way is to compile by `make`
 ##### Make Options:
 * `make debug`	: adds debugging symbols to the program, along with verbose output
 * `make static`	: statically links program (note: this should be done only with musl clib)
-* `make`	: makes the program and mimicks sudo with its outputs
+* `make`	: makes the program and mimics sudo with its outputs
 
-## Attack Senario
-The best attack senario for this program is that it is used as a payload
+## Attack Scenario
+The best attack scenario for this program is that it is used as a payload
 for a trusted USB attack. The attacker would add their own payload prior
 to uploading the program, a good example would be having the program call
-netcat, so when a user types in their password, their password is availble
+netcat, so when a user types in their password, their password is available
 by connecting to a set port where the password would be spit out then the
 connection closes. With a simple script, this would be a simple way
-to get root accsess via ssh or later for a physical attack.
+to get root access via ssh or later for a physical attack.
 
 ## Limitations and Ways to Combat This
 Currently, this program cannot check if the first password given is correct.
@@ -41,5 +41,5 @@ This means that it could grab the wrong password.
 
 To combat this program, one could:
 * require root to write to the bashrc file 
-* not leave their computer unattended (even if locked)
+* not leaving their computer unattended (even if locked)
 
