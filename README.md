@@ -43,3 +43,13 @@ To combat this program, one could:
 * require root to write to the bashrc file 
 * not leaving their computer unattended (even if locked)
 
+## Exit codes
+0 - Exited normally
+1 - File IO error
+2 - No args supplied
+3 - Could not dynamically alloc memory
+4 - Could not expand dynamically alloc'd memory
+
+
+If the -u option is used, the exit code is that of system("mv")
+
