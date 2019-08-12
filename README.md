@@ -10,8 +10,8 @@ When a target types in their password, it is saved so it can be accessed
 later.
 
 ## Project Meta
-This software is in a **working alpha** state.
-The software may not work and may have drastic changes in the future.
+This software is in a **working beta** state.
+The software works as is, with only minor feature add-ons and bug fixes planned
 
 ## License
 This code is licensed under the MIT license. See 'LICENSE' for details. 
@@ -19,7 +19,7 @@ This code is licensed under the MIT license. See 'LICENSE' for details.
 ## Compiling and Testing
 This program allows a couple of compiling options.
 
-The simplest way is to compile by `make`
+The simplest way is to compile by typing `make` in the src folder
 
 ##### Make Options:
 * `make debug`	: adds debugging symbols to the program, along with verbose output
