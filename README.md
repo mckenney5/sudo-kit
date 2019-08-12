@@ -45,9 +45,13 @@ To combat this program, one could:
 
 ## Exit codes
 0 - Exited normally
+
 1 - File IO error
+
 2 - No args supplied
+
 3 - Could not dynamically alloc memory
+
 4 - Could not expand dynamically alloc'd memory
 
 
